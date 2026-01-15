@@ -1,0 +1,47 @@
+TITLE:
+
+DATA:file is cross legged pannel model.dat;
+    variable:
+    MISSING ARE ALL (999);
+
+   names are in1 in2 ex1 ex2
+  bur1 sds1 ses bur2 sds2 age;
+
+    USEVARIABLES = sds1 in1 in2 ex1 ex2 ses bur1 bur2 sds2 age;
+
+  
+  Analysis:
+  type is GENERAL;
+  estimator is ML;
+    BOOTSTRAP=5000;
+   
+  model:
+ 
+ in2 on sds1(c1);
+ ex2 on sds1(c2);
+ bur1 on sds1(a);
+ in2 on bur1(b1);
+ ex2 on bur1(b2);
+
+
+sds1 with ses age in1 ex1;
+in1 with ex1 ses age;
+ex1 with in1 ses age;
+ses with age;
+in2 on ses age in1;
+ex2 on ses age ex1;
+bur1 on ses age in1 ex1;
+
+model constraint:
+NEW(ab1 ab2 totalin totalex total);
+ab1=a*b1;
+ab2=a*b2;
+totalin=a*b1+c1;
+totalex=a*b2+c2;
+total=a*b1+c1+a*b2+c2;
+
+
+output:
+ !standardized modindices(all); 
+ STDYX sampstat cinterval;
+ STAND CINT(BCBOOTSTRAP);
