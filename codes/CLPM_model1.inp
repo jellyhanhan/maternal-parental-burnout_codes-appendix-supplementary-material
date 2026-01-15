@@ -1,4 +1,4 @@
-TITLE:CLPM_basic model1 自回归和相关
+TITLE:CLPM_basic model1 
 
   DATA:file is cross legged pannel model.dat;
     variable:
@@ -15,7 +15,7 @@ TITLE:CLPM_basic model1 自回归和相关
       !BOOTSTRAP=5000;
 
     model:
-  !自回归
+
   sds2 on sds1(a1);bur2 on bur1(a2);
   ex2 on ex1(a3);in2 on in1(a4);
 
